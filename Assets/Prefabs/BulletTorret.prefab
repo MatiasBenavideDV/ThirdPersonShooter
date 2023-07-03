@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5516663662184438021}
   - component: {fileID: 662962318029474643}
   - component: {fileID: 875274921034624599}
-  - component: {fileID: 3623766169394139869}
+  - component: {fileID: -6202010834681973617}
   m_Layer: 0
   m_Name: BulletTorret
   m_TagString: Untagged
@@ -116,7 +116,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
---- !u!114 &3623766169394139869
+--- !u!114 &-6202010834681973617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,5 +129,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  speed: 63.01
-  lifetime: 2
+  speed: 25
