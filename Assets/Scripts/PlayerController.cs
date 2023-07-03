@@ -2,29 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, ITargetable
+public class PlayerController : MonoBehaviour
 {
-    public float speed = 5f;             // Velocidad de movimiento del personaje
+    public float speed = 5f;          // Velocidad de movimiento del personaje
+    public float jumpForce = 5f;      // Fuerza de salto del personaje
 
-    private Camera mainCamera;
-    private float screenWidth;
-    private float screenHeight;
-    private Weapon[] weapons;            // Arreglo de armas disponibles
-    private int currentWeaponIndex;      // Índice de la arma actualmente equipada
+    private Rigidbody rb;
 
     private void Start()
     {
-        // Obtener todas las armas en el jugador
-        weapons = GetComponentsInChildren<Weapon>();
-
-        // Desactivar todas las armas excepto la primera
-        for (int i = 1; i < weapons.Length; i++)
-        {
-            weapons[i].gameObject.SetActive(false);
-        }
-
-        currentWeaponIndex = 0;                     // Inicializa el índice de arma actual
-        weapons[currentWeaponIndex].gameObject.SetActive(true);  // Activa la primera arma
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -34,69 +21,41 @@ public class PlayerController : MonoBehaviour, ITargetable
         float moveVertical = Input.GetAxis("Vertical");
 
         // Calcular el vector de movimiento
-        Vector3 moveDirection = new Vector3(moveHorizontal, 0f, moveVertical);
-        moveDirection *= speed;
+        Vector3 movement = new Vector3(moveHorizontal, 0f, moveVertical);
+        movement *= speed;
 
         // Aplicar el movimiento al jugador
-        transform.Translate(moveDirection * Time.deltaTime);
+        rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.z);
 
-        // Disparar el arma actual al hacer clic izquierdo
-        if (Input.GetMouseButton(0))
+        // Saltar si se presiona la tecla de salto (por ejemplo, "Espacio")
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            weapons[currentWeaponIndex].Fire();
-        }
-
-        // Detectar el cambio de la rueda del mouse
-        float scrollWheel = Input.GetAxis("Mouse ScrollWheel");
-        if (scrollWheel > 0f)
-        {
-            // Desplazarse hacia adelante en el array de armas
-            SelectWeapon(currentWeaponIndex + 1);
-        }
-        else if (scrollWheel < 0f)
-        {
-            // Desplazarse hacia atrás en el array de armas
-            SelectWeapon(currentWeaponIndex - 1);
+            Jump();
         }
     }
 
-    private void SelectWeapon(int weaponIndex)
+    private void Jump()
     {
-        // Asegurarse de que el índice esté dentro del rango válido
-        if (weaponIndex < 0)
+        // Comprobar si el personaje está en el suelo antes de saltar
+        if (IsGrounded())
         {
-            weaponIndex = weapons.Length - 1;
+            // Aplicar una fuerza hacia arriba para realizar el salto
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
-        else if (weaponIndex >= weapons.Length)
-        {
-            weaponIndex = 0;
-        }
-
-        // Desactivar todas las armas
-        foreach (Weapon weapon in weapons)
-        {
-            weapon.gameObject.SetActive(false);
-        }
-
-        // Activar el arma seleccionada
-        weapons[weaponIndex].gameObject.SetActive(true);
-
-        // Actualizar el índice de arma actual
-        currentWeaponIndex = weaponIndex;
     }
 
-    public void TakeDamage(int amount)
+    private bool IsGrounded()
     {
-        // Implementa la lógica para recibir daño aquí
-    }
+        // Raycast hacia abajo para comprobar si el personaje está en el suelo
+        float raycastDistance = 0.1f;
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, raycastDistance))
+        {
+            return true;
+        }
 
-    public Transform GetTargetPosition()
-    {
-        // Implementa la lógica para obtener la posición objetivo aquí
-        return transform;
+        return false;
     }
 }
-
-
 
 

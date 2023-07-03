@@ -8,17 +8,18 @@ public abstract class Attack : MonoBehaviour
 
     protected virtual void Start()
     {
-        target = FindObjectOfType<PlayerController>(); // Obtener el objetivo, puedes cambiarlo por tu lógica específica
+        target = (ITargetable)FindObjectOfType<PlayerController>(); // Conversión explícita
     }
 
     protected virtual void Update()
     {
         if (target == null)
         {
-            target = FindObjectOfType<PlayerController>(); // Actualizar el objetivo si se ha perdido, puedes cambiarlo por tu lógica específica
+            target = (ITargetable)FindObjectOfType<PlayerController>(); // Conversión explícita
         }
     }
 }
+
 
 
 
