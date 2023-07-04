@@ -17,7 +17,9 @@ public class PlayerController : MonoBehaviour
     {
         // Movimiento horizontal
         float moveHorizontal = Input.GetAxis("Horizontal");
-        Vector3 moveDirection = new Vector3(moveHorizontal, 0f, 0f);
-        rb.velocity = new Vector3(moveDirection.x * speed, rb.velocity.y, 0f);
+        float moveVertical = Input.GetAxis("Vertical");
+
+        Vector3 moveDirection = new Vector3(moveHorizontal, 0f, moveVertical);
+        rb.velocity = new Vector3(moveDirection.x * speed, rb.velocity.y, moveDirection.z * speed);
     }
 }
