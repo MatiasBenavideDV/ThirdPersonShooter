@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public interface IDamageable
+namespace Scripts.Interfaces
 {
-    void TakeDamage(int amount);
+    public interface IDamageable
+    {
+        void TakeDamage(int amount);
+    }
 }
 
