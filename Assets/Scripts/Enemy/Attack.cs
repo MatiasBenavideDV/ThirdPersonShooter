@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.Interfaces;
 
 public abstract class Attack : MonoBehaviour
 {
@@ -8,15 +9,15 @@ public abstract class Attack : MonoBehaviour
 
     protected virtual void Start()
     {
-        target = (ITargetable)FindObjectOfType<PlayerController>(); // Conversión explícita
+        // target = (ITargetable)FindObjectOfType<PlayerController>(); // Conversiï¿½n explï¿½cita
     }
 
     protected virtual void Update()
     {
-        if (target == null)
-        {
-            target = (ITargetable)FindObjectOfType<PlayerController>(); // Conversión explícita
-        }
+        // if (target == null)
+        // {
+        //     target = (ITargetable)FindObjectOfType<PlayerController>(); // Conversiï¿½n explï¿½cita
+        // }
     }
 }
 

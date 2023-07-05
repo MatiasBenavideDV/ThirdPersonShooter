@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 public class MachineGunEnemy : Enemy
 {
-    private void Start()
+    private new void Start()
     {
-        // Configura las propiedades específicas del enemigo de ametralladora
-        health = 100;
-        speed = 2f;
+        // Configura las propiedades especï¿½ficas del enemigo de ametralladora
+        health = 150;
+        weaponType = EnemyWeapon.MachineGun;
+
+        base.Start();
     }
 
     private void Update()
     {
-        // Implementa el comportamiento específico del enemigo de ametralladora
+        // Implementa el comportamiento especï¿½fico del enemigo de ametralladora
     }
 }
 

@@ -1,64 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
-// Script ProjectileAttack
 using UnityEngine;
 
-public class ProjectileAttack : Attack
+public class ProjectileAttack : MonoBehaviour
 {
-    public GameObject projectilePrefab;     // Prefab del proyectil
-    public Transform projectileSpawnPoint;  // Punto de origen para la instanciación del proyectil
-    public float fireRate = 0.5f;           // Cadencia de fuego (tiempo entre disparos)
+    // Prefab del proyectil
+    public GameObject projectilePrefab;
 
-    private float nextFireTime;             // Tiempo en el que se puede realizar el próximo disparo
+    // Punto de origen para la instanciaciï¿½n del proyectil
+    public Transform projectileSpawnPoint;
 
-    protected override void Start()
+    // Cadencia de fuego (tiempo entre disparos)
+    [HideInInspector] public float fireRate;
+
+    // Tiempo en el que se puede realizar el prï¿½ximo disparo
+    private float nextFireTime;
+
+    [HideInInspector] public int damageToTarget;
+
+    private void Start()
     {
-        base.Start();
         nextFireTime = Time.time;
     }
 
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
-
         // Verificar si se puede realizar un disparo
         if (CanFire())
         {
             // Instanciar un proyectil
-            InstantiateProjectile();
+            Shoot(damageToTarget);
 
-            // Establecer el tiempo del próximo disparo
+            // Establecer el tiempo del prï¿½ximo disparo
             nextFireTime = Time.time + fireRate;
         }
     }
 
     private bool CanFire()
     {
-        // Verificar si ha pasado el tiempo suficiente desde el último disparo
+        // Verificar si ha pasado el tiempo suficiente desde el ï¿½ltimo disparo
         return Time.time >= nextFireTime;
     }
 
-    private void InstantiateProjectile()
+    //***** Instancia un objeto y le da impulso hacia el target asignando que recibe por parÃ¡metro *****//
+    public void Shoot(int damageToTarget)
     {
-        // Instanciar el proyectil desde el prefab en la posición del punto de origen
         GameObject projectileObj = Instantiate(projectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+        Rigidbody projectileRb = projectileObj.GetComponent<Rigidbody>();
         Projectile projectile = projectileObj.GetComponent<Projectile>();
+        projectileRb.AddForce(transform.forward * 50f, ForceMode.Impulse);
+        projectile.damage = damageToTarget;
+    }
 
-        // Verificar si el proyectil se ha encontrado correctamente
-        if (projectile != null)
-        {
-            // Establecer la dirección del proyectil hacia la posición del jugador
-            Vector3 playerPosition = FindObjectOfType<PlayerController>().transform.position;
-            Vector3 direction = (playerPosition - projectileSpawnPoint.position).normalized;
-            projectile.SetDirection(direction);
-
-            // Asignar el objetivo del proyectil si implementa la interfaz IDamageable
-            IDamageable damageable = projectileObj.GetComponent<IDamageable>();
-            if (damageable != null && target != null)
-            {
-                damageable.TakeDamage(10); // Cambiar el valor del daño según tus necesidades
-            }
-        }
+    public void SetDamageAndFireRate(int damageToTarget, float fireRate)
+    {
+        this.damageToTarget = damageToTarget;
+        this.fireRate = fireRate;
     }
 }
 

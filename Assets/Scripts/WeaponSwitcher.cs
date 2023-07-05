@@ -2,52 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponSwitcher : MonoBehaviour
+namespace Scripts
 {
-    public List<Weapon> weapons;        // Lista de armas disponibles
-    public int currentWeaponIndex = 0;  // Índice de la arma actualmente seleccionada
-
-    private void Update()
+    public class WeaponSwitcher : MonoBehaviour
     {
-        // Cambiar de arma con las teclas numéricas
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SwitchWeapon(0);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SwitchWeapon(1);
-        }
-        // Añadir más teclas numéricas según la cantidad de armas disponibles
+        public List<Weapon> weapons;        // Lista de armas disponibles
+        public int currentWeaponIndex = 0;  // ï¿½ndice de la arma actualmente seleccionada
 
-        // Disparar con la tecla de espacio
-        if (Input.GetKeyDown(KeyCode.Space))
+        private void Update()
         {
-            FireCurrentWeapon();
-        }
-    }
+            // Cambiar de arma con las teclas numï¿½ricas
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SwitchWeapon(0);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SwitchWeapon(1);
+            }
+            // Aï¿½adir mï¿½s teclas numï¿½ricas segï¿½n la cantidad de armas disponibles
 
-    private void SwitchWeapon(int index)
-    {
-        // Desactivar todas las armas
-        foreach (Weapon weapon in weapons)
-        {
-            weapon.gameObject.SetActive(false);
+            // Disparar con la tecla de espacio
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                FireCurrentWeapon();
+            }
         }
 
-        // Activar el arma seleccionada
-        weapons[index].gameObject.SetActive(true);
+        private void SwitchWeapon(int index)
+        {
+            // Desactivar todas las armas
+            foreach (Weapon weapon in weapons)
+            {
+                weapon.gameObject.SetActive(false);
+            }
 
-        // Actualizar el índice de la arma actual
-        currentWeaponIndex = index;
-    }
+            // Activar el arma seleccionada
+            weapons[index].gameObject.SetActive(true);
 
-    private void FireCurrentWeapon()
-    {
-        // Obtener el arma actualmente seleccionada
-        Weapon currentWeapon = weapons[currentWeaponIndex];
+            // Actualizar el ï¿½ndice de la arma actual
+            currentWeaponIndex = index;
+        }
 
-        // Disparar desde el arma actual
-        currentWeapon.Fire();
+        private void FireCurrentWeapon()
+        {
+            // Obtener el arma actualmente seleccionada
+            Weapon currentWeapon = weapons[currentWeaponIndex];
+
+            // Disparar desde el arma actual
+            currentWeapon.Fire();
+        }
     }
 }

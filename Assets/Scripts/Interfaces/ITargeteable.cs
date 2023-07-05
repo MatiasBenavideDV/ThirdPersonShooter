@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ITargetable
+
+namespace Scripts.Interfaces
 {
-    Transform GetTargetPosition();
+    public interface ITargetable
+    {
+        Transform GetTargetPosition();
+    }
 }
 
