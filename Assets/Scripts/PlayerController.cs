@@ -4,58 +4,61 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Scripts.Interfaces;
 
-public class PlayerController : MonoBehaviour, IDamageable
+namespace Scripts
 {
-    // Vida del personaje
-    private int health;
-    private int maxHealth = 100;
-    // Velocidad de movimiento del personaje
-    public float speed = 5f;
-
-    //Velocidad maxima de movimiento
-    private float maxSpeed = 5f;
-
-    private Rigidbody rb;
-
-    private void Awake() {
-        health = maxHealth;
-    }
-
-    private void Start()
+    public class PlayerController : MonoBehaviour, IDamageable
     {
-        rb = GetComponent<Rigidbody>();
-        health = maxHealth;
-    }
+        // Vida del personaje
+        private int health;
+        private int maxHealth = 100;
+        // Velocidad de movimiento del personaje
+        public float speed = 5f;
 
-    private void Update()
-    {
-        Debug.Log(health);
-        if (health <= 0)
-        {
-            health = 0;
-            SceneManager.LoadScene("LooseScene");
+        //Velocidad maxima de movimiento
+        private float maxSpeed = 5f;
+
+        private Rigidbody rb;
+
+        private void Awake() {
+            health = maxHealth;
         }
-        else
+
+        private void Start()
         {
-            // Movimiento horizontal
-            float moveHorizontal = Input.GetAxisRaw("Horizontal");
-            //Movimoiento vertical
-            float moveVertical = Input.GetAxisRaw("Vertical");
-            Vector3 moveDirection = new Vector3(moveHorizontal, 0f, moveVertical);
+            rb = GetComponent<Rigidbody>();
+            health = maxHealth;
+        }
 
-
-            if (rb.velocity.magnitude < maxSpeed)
+        private void Update()
+        {
+            Debug.Log(health);
+            if (health <= 0)
             {
-                rb.velocity = new Vector3(moveDirection.x * speed, rb.velocity.y, moveDirection.z * speed);
+                health = 0;
+                SceneManager.LoadScene("LooseScene");
+            }
+            else
+            {
+                // Movimiento horizontal
+                float moveHorizontal = Input.GetAxisRaw("Horizontal");
+                //Movimoiento vertical
+                float moveVertical = Input.GetAxisRaw("Vertical");
+                Vector3 moveDirection = new Vector3(moveHorizontal, 0f, moveVertical);
+
+
+                if (rb.velocity.magnitude < maxSpeed)
+                {
+                    rb.velocity = new Vector3(moveDirection.x * speed, rb.velocity.y, moveDirection.z * speed);
+                }
             }
         }
-    }
 
-    public void TakeDamage(int damageAmount)
-    {
-        if (health > 0)
+        public void TakeDamage(int damageAmount)
         {
-            health -= damageAmount;
+            if (health > 0)
+            {
+                health -= damageAmount;
+            }
         }
     }
 }
