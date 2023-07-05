@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;             // Velocidad de movimiento del personaje
+    public float rotationSpeed = 5f;     // Velocidad de rotación horizontal
 
     private Rigidbody rb;
 
@@ -17,9 +18,15 @@ public class PlayerController : MonoBehaviour
     {
         // Movimiento horizontal
         float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        Vector3 moveDirection = new Vector3(moveHorizontal, 0f, 0f);
+        rb.velocity = new Vector3(moveDirection.x * speed, rb.velocity.y, rb.velocity.z);
 
-        Vector3 moveDirection = new Vector3(moveHorizontal, 0f, moveVertical);
-        rb.velocity = new Vector3(moveDirection.x * speed, rb.velocity.y, moveDirection.z * speed);
+        // Movimiento vertical
+        float moveVertical = Input.GetAxis("Vertical");
+        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, moveVertical * speed);
+
+        // Rotación horizontal para apuntar con la cámara
+        float mouseX = Input.GetAxis("Mouse X");
+        transform.Rotate(Vector3.up, mouseX * rotationSpeed);
     }
 }

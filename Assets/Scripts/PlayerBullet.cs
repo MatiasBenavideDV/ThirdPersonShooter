@@ -10,11 +10,6 @@ public class PlayerBullet : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-    }
-
-    private void FixedUpdate()
-    {
-        // Mover la bala hacia adelante
         rb.velocity = transform.forward * speed;
     }
 
@@ -29,5 +24,4 @@ public class PlayerBullet : MonoBehaviour
         // Destruir la bala después de la colisión
         Destroy(gameObject);
     }
-
 }

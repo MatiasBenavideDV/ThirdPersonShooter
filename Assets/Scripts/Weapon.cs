@@ -30,10 +30,14 @@ public class Weapon : MonoBehaviour
             bulletRb = bullet.AddComponent<Rigidbody>();
         }
 
-        // Aplicar velocidad inicial a la bala
-        bulletRb.velocity = bullet.transform.forward * initialSpeed;
+        // Obtener la dirección hacia adelante del punto de spawn
+        Vector3 spawnForward = bulletSpawnPoint.forward;
+
+        // Aplicar velocidad inicial a la bala en la dirección hacia adelante del punto de spawn
+        bulletRb.velocity = spawnForward * initialSpeed;
 
         // Destruir la bala después de un tiempo
         Destroy(bullet, 3f);
     }
+
 }
