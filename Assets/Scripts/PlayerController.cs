@@ -2,31 +2,66 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+namespace Scripts
 {
-    public float speed = 5f;             // Velocidad de movimiento del personaje
-    public float rotationSpeed = 5f;     // Velocidad de rotaci�n horizontal
 
-    private Rigidbody rb;
-
-    private void Start()
+    public class PlayerController : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody>();
-    }
+        //***** MOVEMENT *****//
+        public float speed = 5f;             // Velocidad de movimiento del personaje
+        public float maxSpeed = 5f;             // Velocidad de movimiento del personaje
+        private Vector3 directionAxis;
+        private Rigidbody rb;
 
-    private void Update()
-    {
-        // Movimiento horizontal
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        Vector3 moveDirection = new Vector3(moveHorizontal, 0f, 0f);
-        rb.velocity = new Vector3(moveDirection.x * speed, rb.velocity.y, rb.velocity.z);
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
 
-        // Movimiento vertical
-        float moveVertical = Input.GetAxis("Vertical");
-        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, moveVertical * speed);
+        private void Start() {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
 
-        // Rotaci�n horizontal para apuntar con la c�mara
-        float mouseX = Input.GetAxis("Mouse X");
-        transform.Rotate(Vector3.up, mouseX * rotationSpeed);
+        private void Update()
+        {
+            GatherInput();
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Shoot();
+            }
+        }
+
+        private void FixedUpdate() {
+            directionAxis.Normalize();
+            bool hasInput = directionAxis.magnitude != 0;
+
+            if (hasInput)
+            {
+                MovePlayer();
+            }
+        }
+
+        private void GatherInput()
+        {
+            float horizontalAxis = Input.GetAxisRaw("Horizontal");
+            float verticalAxis = Input.GetAxisRaw("Vertical");
+
+            directionAxis = new Vector3(horizontalAxis, 0, verticalAxis);
+        }
+
+        private void MovePlayer()
+        {
+            if (rb.velocity.magnitude < maxSpeed)
+            {
+                rb.MovePosition(transform.position +  (transform.forward * directionAxis.magnitude) * speed * Time.deltaTime);
+            }
+
+        }
+
+        private void Shoot()
+        {
+
+        }
     }
 }

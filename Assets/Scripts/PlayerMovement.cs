@@ -3,42 +3,67 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scripts
-{   
+{
     public class PlayerMovement : MonoBehaviour
     {
-        public float walkSpeed = 6f;
-        public float RunSpeed = 10f;
-        public float jumpHeight = 1.9f;
-        public float gravityScale = -20f;
+        [Header("Movement")]
+        private float moveSpeed = 6f;
+        public float groundDrag;
+        [Header("Ground Check")]
+        private float playerHeight;
+        public LayerMask whatIsGround;
+        private bool isOnGround;
+        [SerializeField] private Transform orientation;
 
-        Vector3 moveInput = Vector3.zero;
-        CharacterController characterController;
+        private float horizontalInput;
+        private float verticalInput;
 
-        private void Awake()
-        {
-            characterController = GetComponent<CharacterController>();
+        private Vector3 moveDirection;
+
+        private Rigidbody rb;
+
+        private void Start() {
+            rb = GetComponent<Rigidbody>();
         }
 
-        private void Update()
-        {
-            Move();
+        private void Update() {
+            isOnGround = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+            GatherInput();
+            SpeedControl();
+
+            if (isOnGround) rb.drag = groundDrag;
+            else rb.drag = 0;
         }
 
-        private void Move()
+        private void FixedUpdate() {
+            MovePlayer();
+        }
+
+        private void GatherInput()
         {
-            if (characterController.isGrounded)
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            verticalInput = Input.GetAxisRaw("Vertical");
+        }
+
+        private void MovePlayer()
+        {
+            Vector3 forwardDir = orientation.forward * verticalInput;
+            Vector3 rightDir = orientation.right * horizontalInput;
+
+            moveDirection = forwardDir + rightDir;
+
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10.0f, ForceMode.Force);
+        }
+
+        private void SpeedControl()
+        {
+            Vector3 flatVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+
+            if (flatVel.magnitude > moveSpeed)
             {
-                moveInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-                moveInput = transform.TransformDirection(moveInput) * walkSpeed;
-
-                if (Input.GetButtonDown("Jump"))
-                {
-                    moveInput.y = Mathf.Sqrt(jumpHeight * -2f * gravityScale);
-                }
+                Vector3 limitedVel = flatVel.normalized * moveSpeed;
+                rb.velocity = new Vector3(limitedVel.x, 0, limitedVel.z);
             }
-            
-            moveInput.y += gravityScale * Time.deltaTime;
-            characterController.Move(moveInput * Time.deltaTime);
         }
     }
 }
