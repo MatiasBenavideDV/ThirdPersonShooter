@@ -8,6 +8,7 @@ namespace Scripts
     {
         public List<Weapon> weapons;        // Lista de armas disponibles
         public int currentWeaponIndex = 0;  // �ndice de la arma actualmente seleccionada
+        private Weapon currentWeapon;
 
         private void Update()
         {
@@ -23,7 +24,7 @@ namespace Scripts
             // A�adir m�s teclas num�ricas seg�n la cantidad de armas disponibles
 
             // Disparar con la tecla de espacio
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetButtonDown("Fire1"))
             {
                 FireCurrentWeapon();
             }
@@ -50,7 +51,7 @@ namespace Scripts
             Weapon currentWeapon = weapons[currentWeaponIndex];
 
             // Disparar desde el arma actual
-            currentWeapon.Fire();
+            currentWeapon.Shoot();
         }
     }
 }

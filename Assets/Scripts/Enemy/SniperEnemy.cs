@@ -1,36 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class SniperEnemy : Enemy
+
+namespace Scripts.Enemy
 {
-
-    private new void Start()
+    public class SniperEnemy : Enemy
     {
-        // Configura las propiedades espec�ficas del enemigo sniper
-        health = 50;
-        speed = 0;
-        weaponType = EnemyWeapon.Sniper;
-        attackRange = 50;
-
-        base.Start();
-    }
-
-    private void Update()
-    {
-        if (health <= 0)
+        private new void Start()
         {
-            Destroy(gameObject);
+            // Configura las propiedades espec�ficas del enemigo sniper
+            health = 50;
+            speed = 0;
+            weaponType = EnemyWeapon.Sniper;
+            attackRange = 50;
+
+            base.Start();
         }
-        else
+
+        private void Update()
         {
-            targetIsInAttackRange = Physics.CheckSphere(transform.position, attackRange, targetLayer);
-            if (targetIsInAttackRange)
+            if (health <= 0)
             {
-                LookAtTarget();
-                Debug.Log(damageToTarget);
-                projectile.SetDamageAndFireRate(damageToTarget, fireRate);
+                Destroy(gameObject);
+            }
+            else
+            {
+                targetIsInAttackRange = Physics.CheckSphere(transform.position, attackRange, targetLayer);
+                if (targetIsInAttackRange)
+                {
+                    LookAtTarget();
+                    Debug.Log(damageToTarget);
+                    projectile.SetDamageAndFireRate(damageToTarget, fireRate);
+                }
             }
         }
     }
 }
-

@@ -1,20 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class MachineGunEnemy : Enemy
+
+namespace Scripts.Enemy
 {
-    private new void Start()
+    public class MachineGunEnemy : Enemy
     {
-        // Configura las propiedades espec�ficas del enemigo de ametralladora
-        health = 150;
-        weaponType = EnemyWeapon.MachineGun;
+        private new void Start()
+        {
+            // Configura las propiedades espec�ficas del enemigo de ametralladora
+            health = 150;
+            speed = 2;
+            weaponType = EnemyWeapon.MachineGun;
+            attackRange = 20;
 
-        base.Start();
-    }
+            base.Start();
+        }
 
-    private void Update()
-    {
-        // Implementa el comportamiento espec�fico del enemigo de ametralladora
+        private void Update()
+        {
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                targetIsInAttackRange = Physics.CheckSphere(transform.position, attackRange, targetLayer);
+                if (targetIsInAttackRange)
+                {
+                    LookAtTarget();
+                    Debug.Log(damageToTarget);
+                    projectile.SetDamageAndFireRate(damageToTarget, fireRate);
+                }
+            }
+        }
     }
 }
-

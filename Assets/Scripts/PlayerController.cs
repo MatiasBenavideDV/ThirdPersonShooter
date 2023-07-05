@@ -31,7 +31,6 @@ namespace Scripts
 
         private void Update()
         {
-            Debug.Log(health);
             if (health <= 0)
             {
                 health = 0;

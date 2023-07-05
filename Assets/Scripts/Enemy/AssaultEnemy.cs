@@ -2,37 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AssaultEnemy : Enemy
+
+namespace Scripts.Enemy
 {
 
-    private new void Start()
+    public class AssaultEnemy : Enemy
     {
-        // Configura las propiedades espec�ficas del enemigo de asalto
-        health = 75;
-        speed = 3f;
-        weaponType = EnemyWeapon.Assault;
-        attackRange = 10;
 
-        base.Start();
-    }
-
-    private void Update()
-    {
-        if (health <= 0)
+        private new void Start()
         {
-            Destroy(gameObject);
+            // Configura las propiedades espec�ficas del enemigo de asalto
+            health = 75;
+            speed = 3f;
+            weaponType = EnemyWeapon.Assault;
+            attackRange = 10;
+
+            base.Start();
         }
-        else
-        {
-            targetIsInAttackRange = Physics.CheckSphere(transform.position, attackRange, targetLayer);
 
-            if (targetIsInAttackRange)
+        private void Update()
+        {
+            if (health <= 0)
             {
-                Debug.Log(damageToTarget);
-                LookAtTarget();
-                projectile.SetDamageAndFireRate(damageToTarget, fireRate);
+                Destroy(gameObject);
+            }
+            else
+            {
+                targetIsInAttackRange = Physics.CheckSphere(transform.position, attackRange, targetLayer);
+
+                if (targetIsInAttackRange)
+                {
+                    Debug.Log(damageToTarget);
+                    LookAtTarget();
+                    projectile.SetDamageAndFireRate(damageToTarget, fireRate);
+                }
             }
         }
     }
 }
-
