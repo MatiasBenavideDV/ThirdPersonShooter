@@ -20,15 +20,6 @@ namespace Scripts
         private void Awake() {
             bullet = bulletPrefab.GetComponent<Bullet>();
         }
-        private void Start()
-        {
-
-        }
-
-        private void Update()
-        {
-
-        }
 
         public abstract void Shoot();
     }
