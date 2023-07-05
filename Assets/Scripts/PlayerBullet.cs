@@ -18,7 +18,7 @@ public class PlayerBullet : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             // Acciones a realizar cuando la bala colisiona con un enemigo
-            // Puedes implementar tu lógica específica aquí, como reducir la salud del enemigo o activar algún efecto de impacto
+            
         }
 
         // Destruir la bala después de la colisión

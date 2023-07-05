@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class WeaponShoot : MonoBehaviour
 {
     public GameObject bulletPrefab;         // Prefab de la bala
     public float initialSpeed = 10f;        // Velocidad inicial de la bala

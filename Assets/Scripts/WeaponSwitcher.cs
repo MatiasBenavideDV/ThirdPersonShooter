@@ -2,55 +2,65 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts
+public class WeaponSwitcher : MonoBehaviour
 {
-    public class WeaponSwitcher : MonoBehaviour
+    public GameObject[] weaponPrefabs;          // Array de prefabs de armas
+    private int currentWeaponIndex = 0;         // Índice del arma actualmente seleccionada
+
+    private void Start()
     {
-        public List<Weapon> weapons;        // Lista de armas disponibles
-        public int currentWeaponIndex = 0;  // �ndice de la arma actualmente seleccionada
-
-        private void Update()
+        // Desactivar todos los prefabs de armas al inicio, excepto el primero
+        for (int i = 1; i < weaponPrefabs.Length; i++)
         {
-            // Cambiar de arma con las teclas num�ricas
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                SwitchWeapon(0);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                SwitchWeapon(1);
-            }
-            // A�adir m�s teclas num�ricas seg�n la cantidad de armas disponibles
+            weaponPrefabs[i].SetActive(false);
+        }
+    }
 
-            // Disparar con la tecla de espacio
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                FireCurrentWeapon();
-            }
+    private void Update()
+    {
+        // Cambiar de arma con la rueda del mouse
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll > 0f)
+        {
+            // Scroll hacia arriba, cambiar al siguiente arma
+            SwitchToNextWeapon();
+        }
+        else if (scroll < 0f)
+        {
+            // Scroll hacia abajo, cambiar al arma anterior
+            SwitchToPreviousWeapon();
+        }
+    }
+
+    private void SwitchToNextWeapon()
+    {
+        // Desactivar el arma actualmente seleccionada
+        weaponPrefabs[currentWeaponIndex].SetActive(false);
+
+        // Incrementar el índice del arma
+        currentWeaponIndex++;
+        if (currentWeaponIndex >= weaponPrefabs.Length)
+        {
+            currentWeaponIndex = 0;
         }
 
-        private void SwitchWeapon(int index)
+        // Activar el nuevo arma seleccionada
+        weaponPrefabs[currentWeaponIndex].SetActive(true);
+    }
+
+    private void SwitchToPreviousWeapon()
+    {
+        // Desactivar el arma actualmente seleccionada
+        weaponPrefabs[currentWeaponIndex].SetActive(false);
+
+        // Decrementar el índice del arma
+        currentWeaponIndex--;
+        if (currentWeaponIndex < 0)
         {
-            // Desactivar todas las armas
-            foreach (Weapon weapon in weapons)
-            {
-                weapon.gameObject.SetActive(false);
-            }
-
-            // Activar el arma seleccionada
-            weapons[index].gameObject.SetActive(true);
-
-            // Actualizar el �ndice de la arma actual
-            currentWeaponIndex = index;
+            currentWeaponIndex = weaponPrefabs.Length - 1;
         }
 
-        private void FireCurrentWeapon()
-        {
-            // Obtener el arma actualmente seleccionada
-            Weapon currentWeapon = weapons[currentWeaponIndex];
-
-            // Disparar desde el arma actual
-            currentWeapon.Fire();
-        }
+        // Activar el nuevo arma seleccionada
+        weaponPrefabs[currentWeaponIndex].SetActive(true);
     }
 }
