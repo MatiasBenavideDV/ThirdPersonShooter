@@ -1301,10 +1301,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a709a3876c3dd0479b84d2387d4dcaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 1445281925}
+  gravityScale: -20
   walkSpeed: 5
   RunSpeed: 10
+  rotationSensibility: 500
   jumpHeight: 1.9
-  gravityScale: -20
 --- !u!143 &1298423661
 CharacterController:
   m_ObjectHideFlags: 0
