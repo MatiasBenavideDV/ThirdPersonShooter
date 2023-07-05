@@ -36,7 +36,7 @@ public class Weapon : MonoBehaviour
         // Aplicar velocidad inicial a la bala en la dirección hacia adelante del punto de spawn
         bulletRb.velocity = spawnForward * initialSpeed;
 
-        // Destruir la bala después de un tiempo
+        // Destruir la bala después de un tiemp0
         Destroy(bullet, 3f);
     }
 
