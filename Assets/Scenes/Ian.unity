@@ -275,6 +275,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 619703706}
+  - component: {fileID: 619703707}
   m_Layer: 3
   m_Name: GunContainer
   m_TagString: Untagged
@@ -311,10 +312,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24a2be535771fe14ca7b75212b8f9932, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  fireRate: 0.1
+  m_Name: 
+  m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4182016668994378888, guid: a39b11163cd880649a5a53dd637502db, type: 3}
+  initialSpeed: 10
   bulletSpawnPoint: {fileID: 591196753}
 --- !u!1 &679804880
 GameObject:
@@ -608,8 +609,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f19175ddd7c89a341866fce6d65eafe5, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   minX: -5
   maxX: 5
   speed: 5
@@ -702,8 +703,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ccbb12486be5a340bdc747ec11aa9f6, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6153550011615921001, guid: 76d164f2c40c79343990bf7d43af95a4, type: 3}
   projectileSpawnPoint: {fileID: 720181746}
   rotationSpeed: 5
@@ -786,7 +787,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.05621847, y: -0.0053646658, z: 0.00030207512, w: 0.998404}
-  m_LocalPosition: {x: -0.06756173, y: 0.579, z: 0.4203335}
+  m_LocalPosition: {x: 0, y: 0.51, z: 0.34}
   m_LocalScale: {x: 0.74367005, y: 0.7436699, z: 0.7436699}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1686,6 +1687,8 @@ GameObject:
   - component: {fileID: 1809319311}
   - component: {fileID: 1809319310}
   - component: {fileID: 1809319317}
+  - component: {fileID: 1809319319}
+  - component: {fileID: 1809319318}
   m_Layer: 3
   m_Name: --> Player
   m_TagString: Player
@@ -1700,11 +1703,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809319309}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df61349c03e84de4f890e4e156f9c45d, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   speed: 5
 --- !u!54 &1809319311
 Rigidbody:
@@ -1793,8 +1796,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809319309}
-  m_LocalRotation: {x: -0, y: 0.01756501, z: -0, w: 0.99984574}
-  m_LocalPosition: {x: 0.06, y: 1.001, z: -90.01}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.94, z: -90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1803,7 +1806,7 @@ Transform:
   - {fileID: 968939932}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 2.013, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1809319317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1814,12 +1817,44 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 534e9c113a362b140b72970fd0c10074, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   weapons:
-  - {fileID: 1641703976}
-  - {fileID: 775115669}
+  - {fileID: 0}
   - {fileID: 1926176132}
+  - {fileID: 1926176132}
+  currentWeaponIndex: 0
+--- !u!114 &1809319318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809319309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a709a3876c3dd0479b84d2387d4dcaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 5
+--- !u!143 &1809319319
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809319309}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.49999997
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1907672386
 GameObject:
   m_ObjectHideFlags: 0

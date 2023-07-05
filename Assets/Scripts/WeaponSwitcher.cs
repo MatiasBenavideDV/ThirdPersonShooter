@@ -23,7 +23,7 @@ namespace Scripts
             // A�adir m�s teclas num�ricas seg�n la cantidad de armas disponibles
 
             // Disparar con la tecla de espacio
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 FireCurrentWeapon();
             }
