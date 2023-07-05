@@ -1,36 +1,27 @@
 using UnityEngine;
 
-namespace Scripts
+public class PlayerBullet : MonoBehaviour
 {
-    public class PlayerBullet : MonoBehaviour
+    public float speed = 10f;   // Velocidad de la bala
+    public int damage = 10;     // Daño infligido por la bala
+
+    private Rigidbody rb;
+
+    private void Start()
     {
-        public float speed = 10f;   // Velocidad de la bala
-        public int damage = 10;     // Daï¿½o infligido por la bala
+        rb = GetComponent<Rigidbody>();
+        rb.velocity = transform.forward * speed;
+    }
 
-        private Rigidbody rb;
-
-        private void Start()
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
         {
-            rb = GetComponent<Rigidbody>();
+            // Acciones a realizar cuando la bala colisiona con un enemigo
+            
         }
 
-        private void FixedUpdate()
-        {
-            // Mover la bala hacia adelante
-            rb.velocity = transform.forward * speed;
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Enemy"))
-            {
-                // Acciones a realizar cuando la bala colisiona con un enemigo
-                // Puedes implementar tu lï¿½gica especï¿½fica aquï¿½, como reducir la salud del enemigo o activar algï¿½n efecto de impacto
-            }
-
-            // Destruir la bala despuï¿½s de la colisiï¿½n
-            Destroy(gameObject);
-        }
-
+        // Destruir la bala después de la colisión
+        Destroy(gameObject);
     }
 }

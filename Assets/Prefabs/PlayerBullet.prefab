@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1846975353279252422}
   - component: {fileID: 1728004768128008210}
   - component: {fileID: 1413981484477839908}
-  - component: {fileID: -3144456039713624725}
+  - component: {fileID: 7709948982394319291}
   m_Layer: 0
   m_Name: PlayerBullet
   m_TagString: Untagged
@@ -116,7 +116,11 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD:Assets/Prefabs/PlayerBullet.prefab
 --- !u!114 &-3144456039713624725
+=======
+--- !u!114 &7709948982394319291
+>>>>>>> 3503b6c0c6d1b904a6cd1520bd80657598af42d3:Assets/Prefabs/Bullet.prefab
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,7 +129,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4182016668994378888}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< HEAD:Assets/Prefabs/PlayerBullet.prefab
   m_Script: {fileID: 11500000, guid: fc14aadf14ef83149a2d8a9f5fc1c8b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   maxRange: 0
+=======
+  m_Script: {fileID: 11500000, guid: d89d0913bc026634c92852274d6e5949, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  speed: 30.2
+  damage: 10
+>>>>>>> 3503b6c0c6d1b904a6cd1520bd80657598af42d3:Assets/Prefabs/Bullet.prefab
